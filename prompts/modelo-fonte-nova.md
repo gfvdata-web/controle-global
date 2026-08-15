@@ -62,8 +62,9 @@ convenções).
 
 ## Objetivo desta sessão
 
-Construir a fonte de ponta a ponta, Etapas 1→7, com o mesmo padrão de qualidade das fontes
-já implementadas.
+Construir a fonte de ponta a ponta, Etapas 1→3, **Etapa E**, 4→7, com o mesmo padrão de qualidade
+das fontes já implementadas. A Etapa E é um ponto de parada obrigatório: o painel das Etapas 4 e 6
+só é desenhado depois que a pauta de exploração for discutida e aprovada.
 
 ### Etapa 1 — Confirmar a fonte e documentar
 - Confirmar na origem: endpoint/arquivo exato, parâmetros, colunas, unidades, período
@@ -84,6 +85,15 @@ já implementadas.
 - Se a fonte precisar de valores reais, deflacionar por **IPCA** (BCB/SGS série 433), com
   base no último mês da série — é a convenção do projeto.
 
+### Etapa E — Exploração (`src/perfil/<<slug>>.py`, `docs/explorar.html`)
+- **Pare aqui e me chame.** Antes de decidir métricas e gráficos, quero ver o que a fonte tem.
+- Gerar `docs/dados/perfil_<<slug>>.json` (perfil medido de bruto + tidy + auxiliares) e escrever
+  `docs/dados/notas_<<slug>>.json` (armadilhas, comparativos, contexto externo pesquisado,
+  cruzamentos, pauta de visualizações). Publicar em `docs/explorar.html`.
+- Especificação completa: `controle-global/prompts/modelo-pagina-exploracao.md`, seções 3 a 7.
+- A pauta aprovada nessa conversa **é** o escopo das Etapas 4 e 6 abaixo — não invente cartões e
+  gráficos antes dela.
+
 ### Etapa 4 — Análise (`src/analise/<<slug>>.py`)
 - Estatística descritiva (média, mediana, desvio, coef. de variação, mín/máx), participação
   (%), crescimento YoY, CAGR, rankings. <<Métricas específicas desta fonte, se houver.>>
@@ -94,10 +104,12 @@ já implementadas.
 
 ### Etapa 6 — Dashboard (`docs/`)
 - `docs/index.html` + `docs/js/app.js` + `docs/css/estilo.css` (copiados do repositório de
-  referência e adaptados). KPIs, evolução temporal, participação, ranking e estatística
-  descritiva, com filtro de período.
-- Na navegação do cabeçalho, linkar os painéis das outras fontes por URL absoluta
-  (`https://gfvdata-web.github.io/fonte-<<outra>>/`), já que cada uma tem seu próprio site.
+  referência e adaptados). **Os cartões e gráficos são os aprovados na Etapa E** — o esqueleto
+  (cabeçalho, paleta, componentes) é comum a todas as fontes, a escolha do que mostrar não é.
+- Na navegação do cabeçalho, linkar `explorar.html` desta fonte e os painéis das outras fontes
+  por URL absoluta (`https://gfvdata-web.github.io/fonte-<<outra>>/`), já que cada uma tem seu
+  próprio site.
+- Marcar como `no_painel`, em `docs/dados/notas_<<slug>>.json`, cada item da pauta construído.
 
 ### Etapa 7 — Documentação e deploy
 - `README.md` (como rodar, estrutura, licença) e `CONTEXTO.md` deste repositório.

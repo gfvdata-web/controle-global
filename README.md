@@ -24,6 +24,7 @@ seu pipeline e o seu dashboard.
 | [catalogo/fontes.md](catalogo/fontes.md) | Índice das fontes implementadas — o que cada uma cobre e onde mora |
 | [catalogo/fontes-candidatas.md](catalogo/fontes-candidatas.md) | Radar de 19 fontes oficiais ainda não implementadas, com priorização |
 | [prompts/modelo-fonte-nova.md](prompts/modelo-fonte-nova.md) | Modelo de prompt para abrir a sessão de uma fonte nova |
+| [prompts/modelo-pagina-exploracao.md](prompts/modelo-pagina-exploracao.md) | **Etapa E** — como construir, em qualquer fonte, a página `explorar.html`: perfil das tabelas + pauta analítica discutível |
 | [GUIA-REPOSITORIOS.md](GUIA-REPOSITORIOS.md) | Como criar/organizar os repositórios e o que vai em cada pasta |
 
 ## Como adicionar uma fonte nova

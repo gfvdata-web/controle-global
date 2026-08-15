@@ -8,11 +8,15 @@
 
 ## Resumo
 
-| Slug | Órgão | Tema | Período | Freq. | Geo | Acesso |
-|------|-------|------|---------|-------|-----|--------|
-| `meios_pagamento_mensal` | BCB | Pagamentos | abr/2002 → | Mensal | ⚪ nacional | API Olinda/OData |
-| `arrecadacao_federal` | RFB | Tributos | jan/1994 → | Mensal | ⚪ nacional | Download XLSX |
-| `credito_modalidade` | BCB/SGS | Crédito | mar/2011 → | Mensal | ⚪ nacional | API SGS (61 séries) |
+| Slug | Órgão | Tema | Período | Freq. | Geo | Acesso | Etapa E |
+|------|-------|------|---------|-------|-----|--------|---------|
+| `meios_pagamento_mensal` | BCB | Pagamentos | abr/2002 → | Mensal | ⚪ nacional | API Olinda/OData | ⬜ pendente |
+| `arrecadacao_federal` | RFB | Tributos | jan/1994 → | Mensal | ⚪ nacional | Download XLSX | ⬜ pendente |
+| `credito_modalidade` | BCB/SGS | Crédito | mar/2011 → | Mensal | ⚪ nacional | API SGS (61 séries) | ⬜ pendente |
+
+> **Etapa E** = página `explorar.html` (perfil das tabelas + pauta analítica). Especificação em
+> [`../prompts/modelo-pagina-exploracao.md`](../prompts/modelo-pagina-exploracao.md); ordem de
+> implementação na seção 8 de lá. Marque ✅ quando a página estiver no ar.
 
 ---
 

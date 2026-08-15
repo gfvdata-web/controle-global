@@ -77,10 +77,30 @@ Cada etapa tem número e nome fixos, iguais em toda fonte. Use-os como referênc
 | 1 | Catálogo da fonte | `catalogo/fonte.md` | — → dicionário de dados (URL, colunas, unidades, licença) |
 | 2 | Ingestão / coleta | `src/coleta/` | endpoint/arquivo → bruto em `dados/brutos/` |
 | 3 | Tratamento & modelagem | `src/tratamento/` | bruto → **CSV tidy** em `dados/processados/` |
+| **E** | **Exploração & pauta analítica** | `src/perfil/`, `docs/explorar.html` | bruto + tidy + auxiliares → **perfil das tabelas** + **pauta de visualizações** |
 | 4 | Análise exploratória & estatística | `src/analise/` | CSV tidy → métricas (participação, YoY, CAGR, descritivas) |
 | 5 | Camada de publicação | `src/publicacao/` | tidy + métricas → **JSON** em `docs/dados/` |
 | 6 | Dashboards & visualização | `docs/` | JSON → site interativo (KPIs, gráficos, tabelas) |
 | 7 | Documentação & deploy | `README.md`, GitHub Pages | — → site no ar e docs atualizadas |
+
+A **Etapa E** recebe letra em vez de número de propósito: ela entrou depois que as Etapas 0→7 já
+estavam escritas em todo lugar, e renumerar quebraria referências em três repositórios. Posição no
+fluxo: **roda depois da 3 e antes da 4**, porque precisa do tidy pronto e serve justamente para
+decidir *o que* a 4 vai calcular e *quais* gráficos a 6 vai construir.
+
+```
+Etapa 2 ──▶ Etapa 3 ──▶ ETAPA E ──▶ [discussão com o Guilherme] ──▶ Etapa 4 → 5 → 6
+```
+
+Ela produz uma página irmã do painel (`docs/explorar.html`) com duas metades: o **perfil medido**
+das tabelas — colunas, tipos, nulos, chaves, joins, cobertura, amostra início+fim — gerado por
+código e atualizado a cada rodada; e a **pauta analítica** — armadilhas, comparativos, contexto
+externo pesquisado, cruzamentos entre fontes e visualizações candidatas com status —, escrita à
+mão e nunca sobrescrita. Especificação completa:
+[`prompts/modelo-pagina-exploracao.md`](prompts/modelo-pagina-exploracao.md).
+
+**A Etapa E só adiciona.** Em fonte já construída, a única alteração permitida em arquivo
+existente é o link "Explorar dados" na navegação do `index.html`.
 
 ## 6. Contrato de dados (vale para toda fonte)
 
@@ -90,10 +110,20 @@ Cada etapa tem número e nome fixos, iguais em toda fonte. Use-os como referênc
                         ──Etapa 3──▶  dados/processados/<slug>.csv   (tidy)
                              │
             ┌────────────────┴─────────────────┐
-       ──Etapa 4──▶ métricas          ──Etapa 5──▶ docs/dados/<slug>.json
-                                             │
-                                        ──Etapa 6──▶ docs/index.html
+            │                                  │
+       ──Etapa E──▶                       ──Etapa 4──▶ métricas
+       docs/dados/perfil_<slug>.json           │
+       docs/dados/notas_<slug>.json       ──Etapa 5──▶ docs/dados/<slug>.json
+            │                                  │
+       docs/explorar.html                 ──Etapa 6──▶ docs/index.html
+            │                                  ▲
+            └──── pauta aprovada ──────────────┘
 ```
+
+Os dois JSON da Etapa E têm donos diferentes e isso é o que faz o desenho funcionar:
+`perfil_<slug>.json` é **gerado e sobrescrito** pelo pipeline a cada rodada; `notas_<slug>.json`
+é **escrito à mão** e nenhum script tem permissão de tocá-lo. Como `dados/brutos/` não é
+versionado, `perfil_<slug>.json` é o único registro em git da forma do dado bruto.
 
 **A forma do tidy é o contrato:** **dimensões em linha, medidas em coluna**, sempre com
 `ano_mes` (`YYYY-MM`) como primeira dimensão. O que muda entre fontes são *quais* colunas
@@ -122,6 +152,14 @@ projeto: **código IBGE de município (7 dígitos)**.
 - **Idioma do código:** nomes de funções/variáveis e comentários em português.
 - **Página do painel:** sempre `docs/index.html` + `docs/js/app.js` + `docs/css/estilo.css`
   (cada repositório tem um painel só, então não há nomes por fonte dentro de `docs/`).
+- **Página de exploração (Etapa E):** sempre `docs/explorar.html` + `docs/js/explorar.js`,
+  lendo `docs/dados/perfil_<slug>.json` e `docs/dados/notas_<slug>.json`. O CSS dela vai
+  **anexado ao fim** do `estilo.css` existente, sob o comentário
+  `/* ===== Etapa E — página de exploração ===== */` — nada acima disso é editado.
+- **Molde comum, conteúdo próprio:** cabeçalho, navegação, paleta e componentes (`.cartao`,
+  `.kpi`, `.tabela`, `.alternador`) são iguais em todas as fontes; **quais** cartões, gráficos e
+  métricas aparecem é decisão específica de cada fonte — e é exatamente isso que a Etapa E existe
+  para decidir, em vez de replicar o mesmo painel genérico.
 
 ## 8. Princípios de trabalho
 
@@ -136,6 +174,10 @@ projeto: **código IBGE de município (7 dígitos)**.
 
 ## 9. Roadmap global
 
+- [ ] **Etapa E nas três fontes já publicadas**, nesta ordem: `meios_pagamento_mensal` (vira a
+      referência de `explorar.html`), `arrecadacao_federal` (hierarquia + IPCA como auxiliares),
+      `credito_modalidade` (61 séries; nulo estrutural em `spread_pp`). Ver
+      [`prompts/modelo-pagina-exploracao.md`](prompts/modelo-pagina-exploracao.md), seção 8.
 - [ ] Implementar a **onda 1** de candidatas: Pix (BCB, com recorte municipal), SGS macro,
       Meios de Pagamento trimestral (cartões). Ver
       [`catalogo/fontes-candidatas.md`](catalogo/fontes-candidatas.md).

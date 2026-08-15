@@ -35,16 +35,22 @@ fonte-<slug-com-hifen>/
 │   ├── config.py            # caminhos + registro da fonte (uma entrada em FONTES)
 │   ├── coleta/<slug>.py         # Etapa 2
 │   ├── tratamento/<slug>.py     # Etapa 3
+│   ├── perfil/<slug>.py         # Etapa E — perfila bruto + tidy + auxiliares
 │   ├── analise/<slug>.py        # Etapa 4
 │   └── publicacao/<slug>.py     # Etapa 5
 ├── dados/
 │   ├── brutos/.gitkeep      # conteúdo NÃO versionado (regenerável pela Etapa 2)
 │   └── processados/<slug>.csv
-├── docs/                    # Etapa 6 — o que o GitHub Pages publica
+├── docs/                    # Etapas 6 e E — o que o GitHub Pages publica
 │   ├── index.html           # sempre index.html (um painel por repositório)
+│   ├── explorar.html        # Etapa E — perfil das tabelas + pauta analítica
 │   ├── css/estilo.css
 │   ├── js/app.js            # sempre app.js
-│   └── dados/<slug>.json
+│   ├── js/explorar.js       # Etapa E
+│   └── dados/
+│       ├── <slug>.json          # Etapa 5 — dados do painel
+│       ├── perfil_<slug>.json   # Etapa E — GERADO pelo pipeline, sobrescrito
+│       └── notas_<slug>.json    # Etapa E — ESCRITO À MÃO, nunca sobrescrito
 └── prompts/                 # opcional: o prompt que originou esta fonte (registro histórico)
 ```
 
@@ -55,6 +61,8 @@ fonte-<slug-com-hifen>/
    a pasta sobreviver ao clone.
 3. `src/config.py` registra **uma** fonte. O formato de dicionário por slug foi mantido para
    que o código das etapas não precisasse mudar.
+4. `docs/dados/notas_<slug>.json` é o único arquivo dentro de `docs/dados/` que **não** é gerado
+   por código. Nenhum script escreve nele — é onde a curadoria da Etapa E fica registrada.
 
 ## Estado atual: já está tudo montado no disco
 
