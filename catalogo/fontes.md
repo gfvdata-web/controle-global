@@ -10,13 +10,13 @@
 
 | Slug | Órgão | Tema | Período | Freq. | Geo | Acesso | Etapa E |
 |------|-------|------|---------|-------|-----|--------|---------|
-| `meios_pagamento_mensal` | BCB | Pagamentos | abr/2002 → | Mensal | ⚪ nacional | API Olinda/OData | ⬜ pendente |
-| `arrecadacao_federal` | RFB | Tributos | jan/1994 → | Mensal | ⚪ nacional | Download XLSX | ⬜ pendente |
-| `credito_modalidade` | BCB/SGS | Crédito | mar/2011 → | Mensal | ⚪ nacional | API SGS (61 séries) | ⬜ pendente |
+| `meios_pagamento_mensal` | BCB | Pagamentos | abr/2002 → | Mensal | ⚪ nacional | API Olinda/OData | ✅ [página](https://gfvdata-web.github.io/fonte-meios-pagamento/explorar.html) |
+| `arrecadacao_federal` | RFB | Tributos | jan/1994 → | Mensal | ⚪ nacional | Download XLSX | ✅ [página](https://gfvdata-web.github.io/fonte-arrecadacao-federal/explorar.html) |
+| `credito_modalidade` | BCB/SGS | Crédito | mar/2011 → | Mensal | ⚪ nacional | API SGS (61 séries) | ✅ [página](https://gfvdata-web.github.io/fonte-credito-modalidade/explorar.html) |
 
 > **Etapa E** = página `explorar.html` (perfil das tabelas + pauta analítica). Especificação em
 > [`../prompts/modelo-pagina-exploracao.md`](../prompts/modelo-pagina-exploracao.md); ordem de
-> implementação na seção 8 de lá. Marque ✅ quando a página estiver no ar.
+> implementação na seção 8 de lá, que também registra o que o perfil de cada fonte revelou.
 
 ---
 
@@ -24,6 +24,7 @@
 
 - **Repositório:** `fonte-meios-pagamento`
 - **Painel:** https://gfvdata-web.github.io/fonte-meios-pagamento/
+- **Explorar (Etapa E):** https://gfvdata-web.github.io/fonte-meios-pagamento/explorar.html
 - **Dicionário completo:** `fonte-meios-pagamento/catalogo/fonte.md`
 - **O que cobre:** quantidade e valor de movimentação por mês e forma de pagamento
   (Pix, TED, TEC, Cheque, Boleto, DOC) no Brasil.
@@ -36,6 +37,7 @@
 
 - **Repositório:** `fonte-arrecadacao-federal`
 - **Painel:** https://gfvdata-web.github.io/fonte-arrecadacao-federal/
+- **Explorar (Etapa E):** https://gfvdata-web.github.io/fonte-arrecadacao-federal/explorar.html
 - **Dicionário completo:** `fonte-arrecadacao-federal/catalogo/fonte.md`
 - **O que cobre:** valor arrecadado mensal por tributo no Brasil, 1994 →, a preços correntes
   e constantes.
@@ -51,6 +53,7 @@
 
 - **Repositório:** `fonte-credito-modalidade`
 - **Painel:** https://gfvdata-web.github.io/fonte-credito-modalidade/
+- **Explorar (Etapa E):** https://gfvdata-web.github.io/fonte-credito-modalidade/explorar.html
 - **Dicionário completo:** `fonte-credito-modalidade/catalogo/fonte.md`
 - **O que cobre:** saldo da carteira, taxa média de juros e spread das operações de crédito
   do SFN, por modalidade e segmento (PF/PJ), mar/2011 →.

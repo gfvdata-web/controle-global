@@ -35,13 +35,23 @@ Recebe letra em vez de número (não é "3.5") para que a numeração 0→7 já 
 publicação. Se algo na Etapa E exigir mudar um arquivo já publicado além desse link, **pare e
 pergunte** — não decida sozinho.
 
-## 3. Os três artefatos
+## 3. Os artefatos
 
 | Arquivo | Quem escreve | Sobrescrito pelo pipeline? |
 |---|---|---|
+| `src/perfil/nucleo.py` | motor genérico, **idêntico nas três fontes** | não |
 | `src/perfil/<slug>.py` → `docs/dados/perfil_<slug>.json` | **código** (pandas) | **sim**, toda rodada |
 | `docs/dados/notas_<slug>.json` | **Claude, à mão** (curadoria) | **nunca** |
 | `docs/explorar.html` + `docs/js/explorar.js` | Claude, uma vez | não |
+
+`nucleo.py` faz toda a medição (tipos, nulos, distintos, estatísticas, chave primária,
+duplicatas, lacunas, órfãos, amostra) e `<slug>.py` só diz **quais** tabelas existem e o que
+cada coluna significa. `explorar.js` é igualmente idêntico entre as fontes — o slug vem de
+`<body data-slug="...">`. Ao corrigir o núcleo, replique nas outras fontes; é a mesma
+duplicação deliberada do `estilo.css`.
+
+A Etapa E entra no `run_pipeline.py` logo depois da Etapa 3, com a flag `--sem-perfil` para
+pulá-la.
 
 A separação é o ponto central do desenho: o **perfil** é estrutura viva — envelhece junto com o
 dado e se corrige sozinho a cada rodada do pipeline. As **notas** são leitura humana — pesquisa,
@@ -127,6 +137,7 @@ logo após a Etapa 3.
   "nulos": 0,
   "pct_nulos": 0.0,
   "distintos": 1740,
+  "armazenado_como_texto": true,        // só aparece quando a medida vem como string (SGS faz isso)
 
   // se numérica:
   "min": 0.4, "max": 6412330.1, "media": 118233.7, "mediana": 4120.5,
@@ -383,20 +394,29 @@ Ao fim de um ciclo, o que estiver em `aprovado` **é** a especificação do pain
 
 ---
 
-## 8. Aplicar a uma fonte já construída (retrofit)
+## 8. As três fontes já feitas — o que cada uma ensinou
 
-Ordem recomendada, da mais simples para a mais rica em joins:
+Feitas em 15/08/2026, nesta ordem. Para uma fonte nova, copie o `explorar.html`, o
+`explorar.js`, o bloco de CSS e o `nucleo.py` da que mais se parecer com ela.
 
-1. `fonte-meios-pagamento` — 2 dimensões, 1 tabela bruta. É a referência: o `explorar.html` que
-   sair daqui é o que as outras copiam.
-2. `fonte-arrecadacao-federal` — tem a hierarquia de tributos e o IPCA como auxiliares, e a
-   armadilha de dupla contagem por `tipo`. É a que melhor exercita a seção de relacionamentos.
-3. `fonte-credito-modalidade` — 61 séries: exercita a regra 4.2 (perfilar uma + inventariar as
-   demais) e tem `spread_pp` nulo fora das linhas `Total`, que é um caso real de nulo estrutural
-   (ausência com significado, não dado faltante) — precisa aparecer explicado, não como "12% de
-   nulos".
+| Fonte | Tabelas | Joins | O que o perfil revelou |
+|---|---|---|---|
+| [`fonte-meios-pagamento`](https://gfvdata-web.github.io/fonte-meios-pagamento/explorar.html) | 3 | 2 | TEC e DOC sem movimento desde fev/2024; Pix presente em 68 dos 291 meses. A **referência**: é dela que as outras copiaram a página. |
+| [`fonte-arrecadacao-federal`](https://gfvdata-web.github.io/fonte-arrecadacao-federal/explorar.html) | 5 | 4 | O rótulo do XLSX **não é chave** — 'ENTIDADES FINANCEIRAS' e 'DEMAIS EMPRESAS' aparecem 3× cada. Auto-relacionamento `tributo_pai`→`tributo` íntegro. Série para em dez/2025 **por limitação da RFB**, verificado na origem. |
+| [`fonte-credito-modalidade`](https://gfvdata-web.github.io/fonte-credito-modalidade/explorar.html) | 4 | 3 | `valor` vem do SGS como texto; `segmento`/`modalidade`/`medida` **não vêm da API** (são anotação da Etapa 2); as 61 séries têm cobertura idêntica, sem viés de janela. |
 
-Em qualquer uma delas, o `index.html`, o `app.js`, o tidy e o JSON de publicação ficam **exatamente
+Três coisas que só apareceram ao implementar e que valem para a próxima fonte:
+
+1. **Nulo estrutural é a regra, não a exceção.** As três fontes têm colunas com nulos ou zeros
+   que significam "não existia" / "não se aplica", não "faltou dado". O perfil os reporta como
+   percentual e a nota é quem explica — essa divisão de trabalho funcionou e deve ser mantida.
+2. **A chave primária tem que ser testada, não declarada.** A única PK inválida das três fontes
+   estava no bruto da arrecadação, e ninguém teria notado sem medir.
+3. **Junte a pesquisa externa ao que o perfil mediu.** O caso exemplar: o perfil detectou zeros
+   em TEC/DOC a partir de mar/2024 e a pesquisa confirmou a data do encerramento na Febraban.
+   Medida + fonte externa transforma uma anomalia numa explicação.
+
+Em qualquer retrofit, o `index.html`, o `app.js`, o tidy e o JSON de publicação ficam **exatamente
 como estão**, exceto o link novo na navegação.
 
 ---

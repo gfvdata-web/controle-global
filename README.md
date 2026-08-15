@@ -10,11 +10,11 @@ seu pipeline e o seu dashboard.
 
 ## Fontes implementadas
 
-| Fonte | Repositório | Painel | Órgão | Período | Geo |
-|-------|-------------|--------|-------|---------|-----|
-| Meios de pagamento (mensal) | `fonte-meios-pagamento` | [painel](https://gfvdata-web.github.io/fonte-meios-pagamento/) | BCB | abr/2002 → | ⚪ nacional |
-| Arrecadação federal | `fonte-arrecadacao-federal` | [painel](https://gfvdata-web.github.io/fonte-arrecadacao-federal/) | RFB | jan/1994 → | ⚪ nacional |
-| Crédito por modalidade | `fonte-credito-modalidade` | [painel](https://gfvdata-web.github.io/fonte-credito-modalidade/) | BCB/SGS | mar/2011 → | ⚪ nacional |
+| Fonte | Repositório | Painel | Explorar | Órgão | Período | Geo |
+|-------|-------------|--------|----------|-------|---------|-----|
+| Meios de pagamento (mensal) | `fonte-meios-pagamento` | [painel](https://gfvdata-web.github.io/fonte-meios-pagamento/) | [dados](https://gfvdata-web.github.io/fonte-meios-pagamento/explorar.html) | BCB | abr/2002 → | ⚪ nacional |
+| Arrecadação federal | `fonte-arrecadacao-federal` | [painel](https://gfvdata-web.github.io/fonte-arrecadacao-federal/) | [dados](https://gfvdata-web.github.io/fonte-arrecadacao-federal/explorar.html) | RFB | jan/1994 → | ⚪ nacional |
+| Crédito por modalidade | `fonte-credito-modalidade` | [painel](https://gfvdata-web.github.io/fonte-credito-modalidade/) | [dados](https://gfvdata-web.github.io/fonte-credito-modalidade/explorar.html) | BCB/SGS | mar/2011 → | ⚪ nacional |
 
 ## Documentação
 
@@ -34,7 +34,9 @@ seu pipeline e o seu dashboard.
    os dados dela.
 3. Criar o repositório `fonte-<slug-com-hifen>` seguindo a estrutura de
    [`GUIA-REPOSITORIOS.md`](GUIA-REPOSITORIOS.md).
-4. Abrir uma conversa nova, colar o prompt preenchido e construir as Etapas 1→7 lá.
+4. Abrir uma conversa nova, colar o prompt preenchido e construir as Etapas 1→3, **E**, 4→7 lá.
+   A [Etapa E](prompts/modelo-pagina-exploracao.md) é ponto de parada: a pauta aprovada nela
+   é que define os gráficos das Etapas 4 e 6.
 5. Voltar aqui e registrar a fonte na tabela acima e em
    [`catalogo/fontes.md`](catalogo/fontes.md); marcar a candidata como implementada.
 
