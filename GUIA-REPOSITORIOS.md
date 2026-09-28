@@ -16,17 +16,6 @@ Tudo mora em `C:\Users\Guilherme\Documents\ClaudeCode\`, um repositório Git por
 | `fonte-credito-modalidade/` | `fonte-credito-modalidade` | Pipeline + painel — BCB/SGS, crédito | sim (`/docs`) |
 | `DadosFinanceirosBancoCentral/` | idem | **Repositório antigo**, monolítico — **arquivado** (só-leitura); ver "O que fazer com o antigo" | sim (congelado) |
 
-**Fora do escopo financeiro** — mesma conta, mesmo modelo (um repositório por projeto, Pages
-em `/docs` ou na raiz), mas não seguem as Etapas deste projeto. Listados aqui só para o mapa
-ficar completo; descrição e links no [`README.md`](README.md):
-
-| Pasta local | Repositório GitHub | O que é | GitHub Pages |
-|---|---|---|---|
-| `painel-status/` | `painel-status` | Monitora acesso e atualização de **todos** os sites `gfvdata-web`; card "Outros forms" com atalhos para Google Forms | sim (`/docs`) |
-| `BolaoF1/` | `page-bolao-formula1` | Bolão de Fórmula 1 (Google Forms → Actions → página) | sim (`/docs`) |
-| `ChessTracking/` | `chess-tracking` | Histórico de partidas no Chess.com | sim (`/docs`) |
-| `SimuladorInvestimentos/` | `simulador-investimentos` | Simulador de rendimento de investimentos | sim |
-
 ## Anatomia de um repositório de fonte
 
 Todos os três seguem exatamente esta forma — e toda fonte nova deve segui-la também:
@@ -113,8 +102,7 @@ gh api -X POST repos/gfvdata-web/<nome-do-repo>/pages -f source[branch]=main -f 
 
 O painel fica em `https://gfvdata-web.github.io/<nome-do-repo>/` — que é exatamente a URL
 escrita nos `README.md` e na navegação entre painéis. Se você mudar o nome de algum
-repositório, esses links precisam ser atualizados junto (e o `src/config.py` do
-`painel-status`).
+repositório, esses links precisam ser atualizados junto.
 
 `controle-global` **não** precisa de Pages: é documentação lida no GitHub mesmo.
 
@@ -183,4 +171,4 @@ Referência rápida de onde foi parar o conteúdo do repositório antigo:
    dentro do repositório novo.
 4. Ao terminar: registrar em `catalogo/fontes.md`, marcar ✅ em `fontes-candidatas.md`,
    adicionar a linha no `README.md` e o link na navegação dos painéis existentes — e seguir o
-   checklist completo do [`CLAUDE.md`](CLAUDE.md) (inclui o mapa acima e o `painel-status`).
+   checklist completo do [`CLAUDE.md`](CLAUDE.md) (inclui o mapa acima).

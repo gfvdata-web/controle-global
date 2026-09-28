@@ -46,15 +46,10 @@ fonte-meios-pagamento/        ← repositório próprio (pipeline + dashboard + 
 fonte-arrecadacao-federal/    ← repositório próprio
 fonte-credito-modalidade/     ← repositório próprio
 fonte-<proxima>/              ← cada fonte nova entra assim
-
-painel-status/                ← fora do escopo financeiro: monitora TODOS os sites gfvdata-web
 ```
 
-Além das fontes, a conta `gfvdata-web` publica projetos **fora do escopo financeiro** (Bolão
-F1, Chess Tracking, Simulador de investimentos) e o **painel de status**, que monitora acesso
-e atualização de dados de todos os sites e reúne atalhos para Google Forms ("Outros forms").
-Eles não seguem as Etapas nem o contrato de dados deste documento — estão listados no
-[`README.md`](README.md) e em [`catalogo/fontes.md`](catalogo/fontes.md) só como índice.
+**Escopo:** este projeto são **só** as fontes de dados financeiros públicos acima. Outros sites
+da conta `gfvdata-web` não fazem parte dele e não são documentados aqui.
 
 **Por que assim:**
 - Cada fonte é **autocontida**: pipeline, dados, dashboard e deploy próprios. Uma sessão

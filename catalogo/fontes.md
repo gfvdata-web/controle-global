@@ -67,59 +67,6 @@
 
 ---
 
-## Fora do escopo financeiro
-
-Projetos da conta `gfvdata-web` que seguem o mesmo modelo (repositório autocontido, pipeline
-em Python, página estática no GitHub Pages), mas **não** são dados financeiros públicos — por
-isso ficam fora da tabela **Resumo** e da Etapa E. Estão aqui só para constar no índice; a
-visão de todos eles (com links) fica na seção "Outros painéis do gfvdata-web" do
-[`README.md`](../README.md), e o monitoramento no
-[painel de status](https://gfvdata-web.github.io/painel-status/).
-
-### `bolao_f1` — Bolão de Fórmula 1
-
-- **Repositório:** [`page-bolao-formula1`](https://github.com/gfvdata-web/page-bolao-formula1)
-- **Página:** https://gfvdata-web.github.io/page-bolao-formula1/
-- **Entrada de dados:** palpites colados no [Google Forms](https://forms.gle/7yZAx1WThPf51bv67);
-  o Apps Script dispara o pipeline no GitHub Actions, que busca o resultado oficial do quali
-  na API Jolpica, calcula a pontuação e republica a página.
-- **Monitoramento:** card de destaque no painel de status, com o passo a passo da última
-  atualização (Forms → leitura dos palpites → resultado oficial → pontuação → página).
-
-### `simulador_investimentos` — Simulador de investimentos
-
-- **Repositório:** [`simulador-investimentos`](https://github.com/gfvdata-web/simulador-investimentos)
-- **Página:** https://gfvdata-web.github.io/simulador-investimentos/
-- **O que é:** comparação do rendimento de investimentos (bruto, líquido de impostos e real)
-  num prazo escolhido; coleta de dados oficiais em dias úteis via Actions.
-- **Monitoramento:** card no painel de status.
-
-### `chess_tracking` — Chess.com · Histórico de partidas
-
-- **Repositório:** [`chess-tracking`](https://github.com/gfvdata-web/chess-tracking)
-- **Página:** https://gfvdata-web.github.io/chess-tracking/
-- **O que cobre:** todas as partidas de uma conta do Chess.com (hoje `giggsmate`), jun/2018 →,
-  com estatísticas de rating, resultado por cor, ritmo, abertura, horário, força do
-  adversário, como as partidas terminam, sequências, atividade e gestão de tempo.
-- **Tidy:** uma linha por partida — `data`, `hora`, `ritmo`, `cor`, `adversario` →
-  `meu_rating`, `adv_rating`, `resultado`, `motivo`, `eco`/`abertura`, `lances`, `precisao`
-  e tempos por fase (`t_abertura`, `t_meio`, `t_final`).
-- **Acesso:** API pública do Chess.com (PubAPI), arquivos mensais por usuário.
-- **Atualização:** GitHub Actions diário (06:17 em Brasília), coleta incremental — só os
-  meses novos e o mês corrente; commit apenas se houver partida nova.
-- **Monitoramento:** card no [painel de status](https://gfvdata-web.github.io/painel-status/).
-
-### Outros forms (sem página própria)
-
-Google Forms de projetos que não têm site publicado. Não são monitorados — aparecem só como
-atalhos no card "Outros forms" do painel de status (lista em `painel-status/docs/js/app.js`,
-constante `OUTROS_FORMS`):
-
-- **Notas fiscais:** https://forms.gle/ftgMMg1Lwpoi7j3Z8
-- **Update plantas:** https://forms.gle/y3uXaukJXmP9GMED7
-
----
-
 ## Como registrar uma fonte nova aqui
 
 Ao concluir uma fonte no repositório dela, volte a este arquivo e adicione:
@@ -129,4 +76,4 @@ Ao concluir uma fonte no repositório dela, volte a este arquivo e adicione:
 3. Marque a fonte como implementada em [`fontes-candidatas.md`](fontes-candidatas.md) e
    atualize a tabela do [`README.md`](../README.md).
 4. Siga o checklist completo do [`CLAUDE.md`](../CLAUDE.md) — inclui `CONTEXTO.md`
-   (árvore e contrato), `GUIA-REPOSITORIOS.md` (mapa) e o `painel-status`.
+   (árvore e contrato) e `GUIA-REPOSITORIOS.md` (mapa).
