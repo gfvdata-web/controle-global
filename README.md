@@ -16,6 +16,19 @@ seu pipeline e o seu dashboard.
 | Arrecadação federal | `fonte-arrecadacao-federal` | [painel](https://gfvdata-web.github.io/fonte-arrecadacao-federal/) | [dados](https://gfvdata-web.github.io/fonte-arrecadacao-federal/explorar.html) | RFB | jan/1994 → | ⚪ nacional |
 | Crédito por modalidade | `fonte-credito-modalidade` | [painel](https://gfvdata-web.github.io/fonte-credito-modalidade/) | [dados](https://gfvdata-web.github.io/fonte-credito-modalidade/explorar.html) | BCB/SGS | mar/2011 → | ⚪ nacional |
 
+## Outros painéis do gfvdata-web
+
+Fora do escopo deste repositório (que é só sobre dados financeiros), mas do mesmo domínio:
+o [**painel de status**](https://gfvdata-web.github.io/painel-status/) monitora acesso e
+atualização de dados de **todos** os sites publicados pela conta `gfvdata-web` — incluindo
+estas três fontes e outros projetos como o Bolão F1 e o Chess Tracking. Repositório:
+[`painel-status`](https://github.com/gfvdata-web/painel-status).
+
+| Projeto | Repositório | Página | O que é |
+|---------|-------------|--------|---------|
+| Bolão F1 | [`page-bolao-formula1`](https://github.com/gfvdata-web/page-bolao-formula1) | [bolão](https://gfvdata-web.github.io/page-bolao-formula1/) | Placar do bolão de Fórmula 1, atualizado a partir dos palpites enviados pelo Google Forms |
+| Chess Tracking | [`chess-tracking`](https://github.com/gfvdata-web/chess-tracking) | [página](https://gfvdata-web.github.io/chess-tracking/) | Histórico de partidas no Chess.com (conta `giggsmate`) com estatísticas: rating, aberturas, ritmo, horário e gestão de tempo — coleta diária via Actions |
+
 ## Documentação
 
 | Arquivo | O que é |
