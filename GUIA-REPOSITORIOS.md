@@ -14,7 +14,18 @@ Tudo mora em `C:\Users\Guilherme\Documents\ClaudeCode\`, um repositório Git por
 | `fonte-meios-pagamento/` | `fonte-meios-pagamento` | Pipeline + painel — BCB, meios de pagamento | sim (`/docs`) |
 | `fonte-arrecadacao-federal/` | `fonte-arrecadacao-federal` | Pipeline + painel — RFB, arrecadação | sim (`/docs`) |
 | `fonte-credito-modalidade/` | `fonte-credito-modalidade` | Pipeline + painel — BCB/SGS, crédito | sim (`/docs`) |
-| `DadosFinanceirosBancoCentral/` | idem (já existe) | **Repositório antigo**, monolítico — ver "O que fazer com o antigo" | sim, hoje |
+| `DadosFinanceirosBancoCentral/` | idem | **Repositório antigo**, monolítico — **arquivado** (só-leitura); ver "O que fazer com o antigo" | sim (congelado) |
+
+**Fora do escopo financeiro** — mesma conta, mesmo modelo (um repositório por projeto, Pages
+em `/docs` ou na raiz), mas não seguem as Etapas deste projeto. Listados aqui só para o mapa
+ficar completo; descrição e links no [`README.md`](README.md):
+
+| Pasta local | Repositório GitHub | O que é | GitHub Pages |
+|---|---|---|---|
+| `painel-status/` | `painel-status` | Monitora acesso e atualização de **todos** os sites `gfvdata-web`; card "Outros forms" com atalhos para Google Forms | sim (`/docs`) |
+| `BolaoF1/` | `page-bolao-formula1` | Bolão de Fórmula 1 (Google Forms → Actions → página) | sim (`/docs`) |
+| `ChessTracking/` | `chess-tracking` | Histórico de partidas no Chess.com | sim (`/docs`) |
+| `SimuladorInvestimentos/` | `simulador-investimentos` | Simulador de rendimento de investimentos | sim |
 
 ## Anatomia de um repositório de fonte
 
@@ -54,7 +65,7 @@ fonte-<slug-com-hifen>/
 └── prompts/                 # opcional: o prompt que originou esta fonte (registro histórico)
 ```
 
-**Três regras que valem sempre:**
+**Quatro regras que valem sempre:**
 1. Dentro de `docs/`, o painel é sempre `index.html` + `js/app.js`. Nomes por fonte
    (`credito-modalidade.html`) só faziam sentido no repositório monolítico.
 2. `dados/brutos/` nunca é versionado — o `.gitignore` já cobre. O `.gitkeep` existe só para
@@ -64,22 +75,23 @@ fonte-<slug-com-hifen>/
 4. `docs/dados/notas_<slug>.json` é o único arquivo dentro de `docs/dados/` que **não** é gerado
    por código. Nenhum script escreve nele — é onde a curadoria da Etapa E fica registrada.
 
-## Estado atual: já está tudo montado no disco
+## Estado atual: tudo publicado
 
-As quatro pastas já existem, com os arquivos no lugar e a documentação escrita. Os pipelines
-foram testados nas pastas novas:
+Os três repositórios de fonte e o `controle-global` estão no GitHub, e os três painéis estão
+no ar com a página de exploração (Etapa E):
 
-- `fonte-meios-pagamento` — pipeline roda ponta a ponta ✅
-- `fonte-credito-modalidade` — pipeline roda ponta a ponta (61 séries) ✅
-- `fonte-arrecadacao-federal` — módulos importam corretamente ✅; o pipeline completo precisa
-  de `openpyxl`, que não estava no venv usado no teste. Instale com
-  `pip install -r requirements.txt` no venv próprio deste repositório.
+| Fonte | Painel | Explorar |
+|---|---|---|
+| `fonte-meios-pagamento` | https://gfvdata-web.github.io/fonte-meios-pagamento/ | [explorar.html](https://gfvdata-web.github.io/fonte-meios-pagamento/explorar.html) |
+| `fonte-arrecadacao-federal` | https://gfvdata-web.github.io/fonte-arrecadacao-federal/ | [explorar.html](https://gfvdata-web.github.io/fonte-arrecadacao-federal/explorar.html) |
+| `fonte-credito-modalidade` | https://gfvdata-web.github.io/fonte-credito-modalidade/ | [explorar.html](https://gfvdata-web.github.io/fonte-credito-modalidade/explorar.html) |
 
-O que falta é o que só você pode fazer: criar os repositórios no GitHub e publicá-los.
+Nenhum dos três tem atualização agendada ainda (roadmap, Etapa 7 no
+[CONTEXTO.md](CONTEXTO.md)) — os dados são atualizados rodando o pipeline localmente.
 
-## Passo a passo para publicar
+## Passo a passo para publicar um repositório novo
 
-Para **cada** uma das quatro pastas, na raiz dela:
+Na raiz da pasta nova:
 
 ```bash
 git init -b main
@@ -93,15 +105,16 @@ Depois, criar o repositório remoto e enviar (o `gh` cria e faz push de uma vez)
 gh repo create gfvdata-web/<nome-do-repo> --public --source=. --push
 ```
 
-Para os **três repositórios de fonte**, ligar o GitHub Pages na pasta `/docs`:
+Para um **repositório de fonte**, ligar o GitHub Pages na pasta `/docs`:
 
 ```bash
 gh api -X POST repos/gfvdata-web/<nome-do-repo>/pages -f source[branch]=main -f source[path]=/docs
 ```
 
-O painel fica em `https://gfvdata-web.github.io/<nome-do-repo>/` — que é exatamente a URL já
+O painel fica em `https://gfvdata-web.github.io/<nome-do-repo>/` — que é exatamente a URL
 escrita nos `README.md` e na navegação entre painéis. Se você mudar o nome de algum
-repositório, esses links precisam ser atualizados junto.
+repositório, esses links precisam ser atualizados junto (e o `src/config.py` do
+`painel-status`).
 
 `controle-global` **não** precisa de Pages: é documentação lida no GitHub mesmo.
 
@@ -120,20 +133,15 @@ dele.
 
 ## O que fazer com o repositório antigo
 
-`DadosFinanceirosBancoCentral` contém hoje as três fontes juntas e é o que está publicado em
-https://gfvdata-web.github.io/DadosFinanceirosBancoCentral/. Todo o conteúdo dele foi
-migrado — nada se perde ao aposentá-lo. **Não apague antes de confirmar que os três
-repositórios novos estão no ar e funcionando.** Depois disso, as opções:
+`DadosFinanceirosBancoCentral` continha as três fontes juntas. Todo o conteúdo dele foi
+migrado para os repositórios de fonte, e ele **já está arquivado** no GitHub (só-leitura:
+o histórico continua acessível e ninguém commita nele por engano). O site antigo
+(https://gfvdata-web.github.io/DadosFinanceirosBancoCentral/) continua respondendo, congelado.
 
-- **Arquivar** (recomendado): `gh repo archive gfvdata-web/DadosFinanceirosBancoCentral`.
-  Fica só-leitura, o histórico e o site continuam acessíveis, e ninguém commita nele por
-  engano.
-- **Manter como está** por um tempo, como rede de segurança, e arquivar depois.
-- **Apagar** — só se você tiver certeza de que não quer o histórico de commits anterior à
-  divisão. É irreversível.
-
-Se aposentar o site antigo, vale trocar o `docs/index.html` dele por uma página curta
-apontando para os três painéis novos, para não deixar link morto por aí.
+Pendência opcional: como o repositório arquivado não aceita commit, trocar o `docs/index.html`
+antigo por uma página apontando para os três painéis novos exige desarquivar, commitar e
+arquivar de novo. **Apagar** o repositório continua sendo irreversível — só se não quiser mais
+o histórico anterior à divisão.
 
 ## Onde cada coisa passou a morar
 
@@ -174,4 +182,5 @@ Referência rápida de onde foi parar o conteúdo do repositório antigo:
 3. Preencher [`prompts/modelo-fonte-nova.md`](prompts/modelo-fonte-nova.md) e rodar a sessão
    dentro do repositório novo.
 4. Ao terminar: registrar em `catalogo/fontes.md`, marcar ✅ em `fontes-candidatas.md`,
-   adicionar a linha no `README.md` e o link na navegação dos painéis existentes.
+   adicionar a linha no `README.md` e o link na navegação dos painéis existentes — e seguir o
+   checklist completo do [`CLAUDE.md`](CLAUDE.md) (inclui o mapa acima e o `painel-status`).

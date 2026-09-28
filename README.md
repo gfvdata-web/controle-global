@@ -20,14 +20,24 @@ seu pipeline e o seu dashboard.
 
 Fora do escopo deste repositório (que é só sobre dados financeiros), mas do mesmo domínio:
 o [**painel de status**](https://gfvdata-web.github.io/painel-status/) monitora acesso e
-atualização de dados de **todos** os sites publicados pela conta `gfvdata-web` — incluindo
-estas três fontes e outros projetos como o Bolão F1 e o Chess Tracking. Repositório:
-[`painel-status`](https://github.com/gfvdata-web/painel-status).
+atualização de dados de **todos** os sites publicados pela conta `gfvdata-web` — as três
+fontes acima e os projetos abaixo. Repositório:
+[`painel-status`](https://github.com/gfvdata-web/painel-status) (lista de sites em
+`src/config.py`).
 
 | Projeto | Repositório | Página | O que é |
 |---------|-------------|--------|---------|
-| Bolão F1 | [`page-bolao-formula1`](https://github.com/gfvdata-web/page-bolao-formula1) | [bolão](https://gfvdata-web.github.io/page-bolao-formula1/) | Placar do bolão de Fórmula 1, atualizado a partir dos palpites enviados pelo Google Forms |
+| Bolão F1 | [`page-bolao-formula1`](https://github.com/gfvdata-web/page-bolao-formula1) | [bolão](https://gfvdata-web.github.io/page-bolao-formula1/) · [enviar palpites](https://forms.gle/7yZAx1WThPf51bv67) | Placar do bolão de Fórmula 1, atualizado a partir dos palpites enviados pelo Google Forms — é o card de destaque do painel de status, com o passo a passo da última atualização |
 | Chess Tracking | [`chess-tracking`](https://github.com/gfvdata-web/chess-tracking) | [página](https://gfvdata-web.github.io/chess-tracking/) | Histórico de partidas no Chess.com (conta `giggsmate`) com estatísticas: rating, aberturas, ritmo, horário e gestão de tempo — coleta diária via Actions |
+| Simulador de investimentos | [`simulador-investimentos`](https://github.com/gfvdata-web/simulador-investimentos) | [simulador](https://gfvdata-web.github.io/simulador-investimentos/) | Comparação de rendimento de investimentos (bruto, líquido e real) — coleta de dados oficiais em dias úteis via Actions |
+
+**Outros forms** — o painel de status também tem um card só de atalhos para Google Forms de
+projetos sem site publicado (lista fixa em `docs/js/app.js`, constante `OUTROS_FORMS`):
+
+| Form | Link |
+|------|------|
+| Notas fiscais | https://forms.gle/ftgMMg1Lwpoi7j3Z8 |
+| Update plantas | https://forms.gle/y3uXaukJXmP9GMED7 |
 
 ## Documentação
 
@@ -39,6 +49,7 @@ estas três fontes e outros projetos como o Bolão F1 e o Chess Tracking. Reposi
 | [prompts/modelo-fonte-nova.md](prompts/modelo-fonte-nova.md) | Modelo de prompt para abrir a sessão de uma fonte nova |
 | [prompts/modelo-pagina-exploracao.md](prompts/modelo-pagina-exploracao.md) | **Etapa E** — como construir, em qualquer fonte, a página `explorar.html`: perfil das tabelas + pauta analítica discutível |
 | [GUIA-REPOSITORIOS.md](GUIA-REPOSITORIOS.md) | Como criar/organizar os repositórios e o que vai em cada pasta |
+| [CLAUDE.md](CLAUDE.md) | Regra de manutenção: toda mudança aqui atualiza **todos** os documentos que a referenciam (checklist) |
 
 ## Como adicionar uma fonte nova
 

@@ -37,14 +37,24 @@ controle-global/              ← este repositório (só documentação)
 ├── catalogo/
 │   ├── fontes.md             ← índice das fontes implementadas
 │   └── fontes-candidatas.md  ← radar de fontes ainda não implementadas
-└── prompts/
-    └── modelo-fonte-nova.md  ← modelo de prompt para abrir uma fonte nova
+├── prompts/
+│   ├── modelo-fonte-nova.md          ← modelo de prompt para abrir uma fonte nova
+│   └── modelo-pagina-exploracao.md   ← especificação da Etapa E
+└── CLAUDE.md                 ← regra de manutenção: checklist de concordância entre os docs
 
 fonte-meios-pagamento/        ← repositório próprio (pipeline + dashboard + Pages)
 fonte-arrecadacao-federal/    ← repositório próprio
 fonte-credito-modalidade/     ← repositório próprio
 fonte-<proxima>/              ← cada fonte nova entra assim
+
+painel-status/                ← fora do escopo financeiro: monitora TODOS os sites gfvdata-web
 ```
+
+Além das fontes, a conta `gfvdata-web` publica projetos **fora do escopo financeiro** (Bolão
+F1, Chess Tracking, Simulador de investimentos) e o **painel de status**, que monitora acesso
+e atualização de dados de todos os sites e reúne atalhos para Google Forms ("Outros forms").
+Eles não seguem as Etapas nem o contrato de dados deste documento — estão listados no
+[`README.md`](README.md) e em [`catalogo/fontes.md`](catalogo/fontes.md) só como índice.
 
 **Por que assim:**
 - Cada fonte é **autocontida**: pipeline, dados, dashboard e deploy próprios. Uma sessão
@@ -171,10 +181,13 @@ projeto: **código IBGE de município (7 dígitos)**.
 - **Escopo do repositório:** trabalho sobre uma fonte acontece **no repositório dela**. Este
   repositório só é tocado quando a mudança é global (uma convenção nova, uma fonte
   registrada, uma candidata promovida).
+- **Concordância entre documentos:** toda mudança neste repositório atualiza, no mesmo
+  commit, **todos** os documentos que referenciam o que mudou — checklist em
+  [`CLAUDE.md`](CLAUDE.md).
 
 ## 9. Roadmap global
 
-- [ ] **Etapa E nas três fontes já publicadas**, nesta ordem: `meios_pagamento_mensal` (vira a
+- [x] **Etapa E nas três fontes já publicadas**, nesta ordem: `meios_pagamento_mensal` (vira a
       referência de `explorar.html`), `arrecadacao_federal` (hierarquia + IPCA como auxiliares),
       `credito_modalidade` (61 séries; nulo estrutural em `spread_pp`). Ver
       [`prompts/modelo-pagina-exploracao.md`](prompts/modelo-pagina-exploracao.md), seção 8.
