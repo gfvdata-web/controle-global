@@ -67,6 +67,29 @@
 
 ---
 
+## Fora do escopo financeiro
+
+Projetos da conta `gfvdata-web` que seguem o mesmo modelo (repositório autocontido, pipeline
+em Python, página estática no GitHub Pages), mas **não** são dados financeiros públicos — por
+isso ficam fora da tabela **Resumo** e da Etapa E. Estão aqui só para constar no índice.
+
+### `chess_tracking` — Chess.com · Histórico de partidas
+
+- **Repositório:** [`chess-tracking`](https://github.com/gfvdata-web/chess-tracking)
+- **Página:** https://gfvdata-web.github.io/chess-tracking/
+- **O que cobre:** todas as partidas de uma conta do Chess.com (hoje `giggsmate`), jun/2018 →,
+  com estatísticas de rating, resultado por cor, ritmo, abertura, horário, força do
+  adversário, como as partidas terminam, sequências, atividade e gestão de tempo.
+- **Tidy:** uma linha por partida — `data`, `hora`, `ritmo`, `cor`, `adversario` →
+  `meu_rating`, `adv_rating`, `resultado`, `motivo`, `eco`/`abertura`, `lances`, `precisao`
+  e tempos por fase (`t_abertura`, `t_meio`, `t_final`).
+- **Acesso:** API pública do Chess.com (PubAPI), arquivos mensais por usuário.
+- **Atualização:** GitHub Actions diário (06:17 em Brasília), coleta incremental — só os
+  meses novos e o mês corrente; commit apenas se houver partida nova.
+- **Monitoramento:** card no [painel de status](https://gfvdata-web.github.io/painel-status/).
+
+---
+
 ## Como registrar uma fonte nova aqui
 
 Ao concluir uma fonte no repositório dela, volte a este arquivo e adicione:
